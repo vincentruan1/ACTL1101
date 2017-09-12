@@ -279,9 +279,9 @@ barplot(death_income, main="Death rate versus Income",
 
 ##Education vs death
 colnames(edu)[1] <- "Area"
-death_st <- death_st[death_st$Year == 2011,]
-death_st <- na.omit(death_st)
-edu_death <- merge(edu, death_st, by = "Area")
+death_st_11 <- death_st[death_st$Year == 2011,]
+death_st_11 <- na.omit(death_st_11)
+edu_death <- merge(edu, death_st_11, by = "Area")
 edu_death[3:10] <- lapply(edu_death[3:10], as.numeric)
 colnames(edu_death)[5] <- "Bachelor"
 a <- with(edu_death, mean(StandardisedDeath[ Bachelor > 0 & Bachelor < 10]))
@@ -291,6 +291,22 @@ d <- with(edu_death, mean(StandardisedDeath[ Bachelor > 30 & Bachelor < 40]))
 death_bach <- c(a,b,c,d)
 barplot(death_bach, main="Death rate versus % Bachelor Degree",
         names.arg=c("0 - 10%", "10 - 20%", "20 - 30%", "30 - 40%"))
+
+##Population density
+colnames(pop_den)[1] <- "Area"
+colnames(pop_den)[2] <- "Year"
+colnames(pop_den)[3] <- "PopDen"
+pop_den_death <- merge(pop_den, death_st_11)
+pop_den_death[c(2:4)] <- lapply(pop_den_death[c(2:4)], as.numeric)
+pop_den_death <- na.omit(pop_den_death)
+plot(pop_den_death$PopDen, pop_den_death$StandardisedDeath)
+a <- with(pop_den_death, mean(StandardisedDeath[ PopDen > 0 & PopDen < 100]))
+b <- with(pop_den_death, mean(StandardisedDeath[ PopDen > 100 & PopDen < 1000]))
+c <- with(pop_den_death, mean(StandardisedDeath[ PopDen > 1000 & PopDen < 2000]))
+d <- with(pop_den_death, mean(StandardisedDeath[ PopDen > 2000 & PopDen < 4000]))
+e <- with(pop_den_death, mean(StandardisedDeath[ PopDen > 4000 & PopDen < 8000]))
+barplot(c(a,b,c,d,e), main="Death rate versus Population Density",
+        names.arg=c("0-100", "100-1000", "1000-2000", "2000-4000", "4000-8000"), ylab = "Average death per '000", xlab = "Person per square km")
 
 ##Removing bottom 25% quartile##
 #Remove NA data
