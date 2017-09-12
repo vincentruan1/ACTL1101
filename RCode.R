@@ -271,6 +271,9 @@ income_death <- transform(income_death, StandardisedDeath = as.numeric(Standardi
 a <- with(income_death, mean(StandardisedDeath[MedianIncome > 30000 & MedianIncome < 40000]))
 b <- with(income_death, mean(StandardisedDeath[MedianIncome > 40000 & MedianIncome < 50000]))
 c <- with(income_death, mean(StandardisedDeath[MedianIncome > 50000 & MedianIncome < 60000]))
+death_income <- c(a,b,c)
+barplot(death_income, main="Death rate versus Income",
+        names.arg=c("30k - 40k", "40k - 50k", "50k to 60k"))
 #with(income_death, mean(StandardisedDeath[MedianIncome > 60000 & MedianIncome < 70000]))
 #with(income_death, mean(StandardisedDeath[MedianIncome > 70000 & MedianIncome < 80000]))
 
@@ -285,6 +288,9 @@ a <- with(edu_death, mean(StandardisedDeath[ Bachelor > 0 & Bachelor < 10]))
 b <- with(edu_death, mean(StandardisedDeath[ Bachelor > 10 & Bachelor < 20]))
 c <- with(edu_death, mean(StandardisedDeath[ Bachelor > 20 & Bachelor < 30]))
 d <- with(edu_death, mean(StandardisedDeath[ Bachelor > 30 & Bachelor < 40]))
+death_bach <- c(a,b,c,d)
+barplot(death_bach, main="Death rate versus % Bachelor Degree",
+        names.arg=c("0 - 10%", "10 - 20%", "20 - 30%", "30 - 40%"))
 
 ##Removing bottom 25% quartile##
 #Remove NA data
