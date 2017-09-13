@@ -1,4 +1,5 @@
 library(openxlsx)
+library(plyr)
 
 ##Population##
 pop <- read.xlsx("14100DS0002_2017-03.xlsx",
@@ -274,8 +275,12 @@ c <- with(income_death, mean(StandardisedDeath[MedianIncome > 50000 & MedianInco
 death_income <- c(a,b,c)
 barplot(death_income, main="Death rate versus Income",
         names.arg=c("30k - 40k", "40k - 50k", "50k to 60k"))
+income_death_mean <- aggregate(StandardisedDeath ~  MedianIncome, income_death, mean)
+boxplot(StandardisedDeath~MedianIncome, income_death_mean, outline=FALSE)
 #with(income_death, mean(StandardisedDeath[MedianIncome > 60000 & MedianIncome < 70000]))
 #with(income_death, mean(StandardisedDeath[MedianIncome > 70000 & MedianIncome < 80000]))
+income_death_mean$IncRange <- cut(income_death_mean$MedianIncome, breaks=seq(30000, 80000, 5000))
+income_death_mean2 <- ddply(income_death_mean, .(IncRange), summarize, mean_dr=mean(StandardisedDeath))
 
 ##Education vs death
 colnames(edu)[1] <- "Area"
@@ -291,6 +296,8 @@ d <- with(edu_death, mean(StandardisedDeath[ Bachelor > 30 & Bachelor < 40]))
 death_bach <- c(a,b,c,d)
 barplot(death_bach, main="Death rate versus % Bachelor Degree",
         names.arg=c("0 - 10%", "10 - 20%", "20 - 30%", "30 - 40%"))
+death_bach_mean <- aggregate(StandardisedDeath ~  Bachelor, edu_death, mean)
+boxplot(StandardisedDeath~Bachelor, death_bach_mean, outline=FALSE)
 
 ##Population density
 colnames(pop_den)[1] <- "Area"
@@ -307,6 +314,17 @@ d <- with(pop_den_death, mean(StandardisedDeath[ PopDen > 2000 & PopDen < 4000])
 e <- with(pop_den_death, mean(StandardisedDeath[ PopDen > 4000 & PopDen < 8000]))
 barplot(c(a,b,c,d,e), main="Death rate versus Population Density",
         names.arg=c("0-100", "100-1000", "1000-2000", "2000-4000", "4000-8000"), ylab = "Average death per '000", xlab = "Person per square km")
+boxplot(StandardisedDeath~PopDen, pop_den_death, col = "bisque", outline=FALSE)
+means <- aggregate(StandardisedDeath ~  PopDen, pop_den_death, mean)
+boxplot(StandardisedDeath~PopDen, means)
+
+##Eng Prof
+colnames(eng_prof)[c(1,2)] <- c("Area", "Year")
+eng_prof_death <- merge(eng_prof, death_st_11)
+eng_prof_death <- na.omit(eng_prof_death)
+colnames(eng_prof_death)[6] <- "NotProf"
+eng_prof_death[c(2:8)] <- lapply(eng_prof_death[c(2:8)], as.numeric)
+boxplot(StandardisedDeath~NotProf, eng_prof_death, col = "bisque", outline=FALSE)
 
 ##Removing bottom 25% quartile##
 #Remove NA data
