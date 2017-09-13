@@ -252,84 +252,49 @@ solar <- subset(le, select = c(1,2,19:20))
 ############################################################
 
 ##Sample Death vs income graph
-colnames(death_st)[1] <- "Area"
-colnames(employee_income)[1] <- "Area"
-colnames(death_st)[2] <- "Year"
-colnames(death_st)[3] <- "StandardisedDeath"
-colnames(employee_income)[2] <- "Year"
+colnames(death_st)[c(1,2,3)] <- c("Area", "Year", "Std")
+colnames(employee_income)[c(1,2,3)] <- c("Area", "Year", "MedIncome")
 #Select data who's year is 2013
 death_st_13 <- death_st[death_st$Year == "2013",]
 #Combine dataframes together
 income_death <- merge(death_st_13, employee_income)
+#Remove NA data
 income_death <- na.omit(income_death)
-colnames(income_death)[4] <- "MedianIncome"
-##income_death <- income_death[income_death$StandardisedDeath != "-",]
-#Plot death rate vs income on a scatter plot
-plot(income_death$MedianIncome, income_death$StandardisedDeath , main="Death per '000 versus Median Income", 
-     xlab="Income", ylab="Death Rate per '000")
-income_death <- transform(income_death, MedianIncome = as.numeric(MedianIncome))
-income_death <- transform(income_death, StandardisedDeath = as.numeric(StandardisedDeath))
-a <- with(income_death, mean(StandardisedDeath[MedianIncome > 30000 & MedianIncome < 40000]))
-b <- with(income_death, mean(StandardisedDeath[MedianIncome > 40000 & MedianIncome < 50000]))
-c <- with(income_death, mean(StandardisedDeath[MedianIncome > 50000 & MedianIncome < 60000]))
-death_income <- c(a,b,c)
-barplot(death_income, main="Death rate versus Income",
-        names.arg=c("30k - 40k", "40k - 50k", "50k to 60k"))
-income_death_mean <- aggregate(StandardisedDeath ~  MedianIncome, income_death, mean)
-boxplot(StandardisedDeath~MedianIncome, income_death_mean, outline=FALSE)
-#with(income_death, mean(StandardisedDeath[MedianIncome > 60000 & MedianIncome < 70000]))
-#with(income_death, mean(StandardisedDeath[MedianIncome > 70000 & MedianIncome < 80000]))
-income_death_mean$IncRange <- cut(income_death_mean$MedianIncome, breaks=seq(30000, 80000, 5000))
-income_death_mean2 <- ddply(income_death_mean, .(IncRange), summarize, mean_dr=mean(StandardisedDeath))
+#Convert data to numeric
+income_death[c(3:6)] <- lapply(income_death[c(3:6)], as.numeric)
+#Group the data based on income ranges (30000, 35000, 40000, ...)
+income_death$IncRange <- cut(income_death$MedIncome, breaks=seq(30000, 80000, 5000), dig.lab=5)
+#Average the death rate per income group
+income_death_mean <- ddply(income_death, .(IncRange), summarize, mean_dr=mean(Std))
+#Plot death rate per income group
+boxplot(mean_dr~IncRange,income_death_mean)
 
 ##Education vs death
-colnames(edu)[1] <- "Area"
-death_st_11 <- death_st[death_st$Year == 2011,]
+colnames(edu)[c(1,2)] <- c("Area", "Year")
+death_st_11 <- death_st[death_st$Year == "2011",]
 death_st_11 <- na.omit(death_st_11)
-edu_death <- merge(edu, death_st_11, by = "Area")
-edu_death[3:10] <- lapply(edu_death[3:10], as.numeric)
+edu_death <- merge(edu, death_st_11)
+edu_death[3:9] <- lapply(edu_death[3:9], as.numeric)
 colnames(edu_death)[5] <- "Bachelor"
-a <- with(edu_death, mean(StandardisedDeath[ Bachelor > 0 & Bachelor < 10]))
-b <- with(edu_death, mean(StandardisedDeath[ Bachelor > 10 & Bachelor < 20]))
-c <- with(edu_death, mean(StandardisedDeath[ Bachelor > 20 & Bachelor < 30]))
-d <- with(edu_death, mean(StandardisedDeath[ Bachelor > 30 & Bachelor < 40]))
-death_bach <- c(a,b,c,d)
-barplot(death_bach, main="Death rate versus % Bachelor Degree",
-        names.arg=c("0 - 10%", "10 - 20%", "20 - 30%", "30 - 40%"))
-death_bach_mean <- aggregate(StandardisedDeath ~  Bachelor, edu_death, mean)
-boxplot(StandardisedDeath~Bachelor, death_bach_mean, outline=FALSE)
+death_bach_mean <- aggregate(Std ~  Bachelor, edu_death, mean)
+boxplot(Std~Bachelor, death_bach_mean, outline=FALSE)
 
 ##Population density
-colnames(pop_den)[1] <- "Area"
-colnames(pop_den)[2] <- "Year"
-colnames(pop_den)[3] <- "PopDen"
+colnames(pop_den)[c(1,2,3)] <- c("Area", "Year", "PopDen")
 pop_den_death <- merge(pop_den, death_st_11)
-pop_den_death[c(2:4)] <- lapply(pop_den_death[c(2:4)], as.numeric)
 pop_den_death <- na.omit(pop_den_death)
-plot(pop_den_death$PopDen, pop_den_death$StandardisedDeath)
-a <- with(pop_den_death, mean(StandardisedDeath[ PopDen > 0 & PopDen < 100]))
-b <- with(pop_den_death, mean(StandardisedDeath[ PopDen > 100 & PopDen < 1000]))
-c <- with(pop_den_death, mean(StandardisedDeath[ PopDen > 1000 & PopDen < 2000]))
-d <- with(pop_den_death, mean(StandardisedDeath[ PopDen > 2000 & PopDen < 4000]))
-e <- with(pop_den_death, mean(StandardisedDeath[ PopDen > 4000 & PopDen < 8000]))
-barplot(c(a,b,c,d,e), main="Death rate versus Population Density",
-        names.arg=c("0-100", "100-1000", "1000-2000", "2000-4000", "4000-8000"), ylab = "Average death per '000", xlab = "Person per square km")
-boxplot(StandardisedDeath~PopDen, pop_den_death, col = "bisque", outline=FALSE)
-means <- aggregate(StandardisedDeath ~  PopDen, pop_den_death, mean)
-boxplot(StandardisedDeath~PopDen, means)
+pop_den_death[c(2:4)] <- lapply(pop_den_death[c(2:4)], as.numeric)
+pop_den_death$PopDenRange <- cut(pop_den_death$PopDen, breaks=c(0,2^(0:14)), dig.lab = 5)
+pop_den_death_mean <- ddply(pop_den_death, .(PopDenRange), summarize, mean_dr=mean(Std))
+boxplot(mean_dr~PopDenRange, pop_den_death_mean, main = "Death rate versus Population Density", ylab = "Death Rate per '000", xlab = "Population Density per sqkm")
 
-##Eng Prof
+##English proficiency
 colnames(eng_prof)[c(1,2)] <- c("Area", "Year")
 eng_prof_death <- merge(eng_prof, death_st_11)
 eng_prof_death <- na.omit(eng_prof_death)
 colnames(eng_prof_death)[6] <- "NotProf"
 eng_prof_death[c(2:8)] <- lapply(eng_prof_death[c(2:8)], as.numeric)
-boxplot(StandardisedDeath~NotProf, eng_prof_death, col = "bisque", outline=FALSE)
+eng_prof_death$NotProfRange <- cut(eng_prof_death$NotProf, breaks=seq(0, 34, 2), dig.lab = 5)
+eng_prof_death_mean <- ddply(eng_prof_death, .(NotProfRange), summarize, mean_dr=mean(Std))
+boxplot(mean_dr~NotProfRange, eng_prof_death_mean, main = "Death rate versus English Proficiency", ylab = "Death Rate per '000", xlab = "% English Proficiency")
 
-##Removing bottom 25% quartile##
-#Remove NA data
-test <- na.omit(death_st)
-#Convert the data to numeric
-test <- transform(test, StandardisedDeath = as.numeric(StandardisedDeath))
-#Obtain new data frame by removing bottom 25%
-test2 <- test[ test$StandardisedDeath > quantile(test$StandardisedDeath , 0.25 ) , ]
