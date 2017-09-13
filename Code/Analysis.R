@@ -3,9 +3,9 @@ library(plyr)
 ##Income
 colnames(death_st)[c(1,2,3)] <- c("Area", "Year", "Std")
 colnames(employee_income)[c(1,2,3)] <- c("Area", "Year", "MedIncome")
-#Select data who's year is 2013
+#Select death's in the year 2013
 death_st_13 <- death_st[death_st$Year == "2013",]
-#Combine dataframes together
+#Combine death and income together
 income_death <- merge(death_st_13, employee_income)
 #Remove NA data
 income_death <- na.omit(income_death)
@@ -13,9 +13,9 @@ income_death <- na.omit(income_death)
 income_death[c(3:6)] <- lapply(income_death[c(3:6)], as.numeric)
 #Group the data based on income ranges (30000, 35000, 40000, ...)
 income_death$IncRange <- cut(income_death$MedIncome, breaks=seq(30000, 80000, 5000), dig.lab=5)
-#Average the death rate per income group
+#Find the average death rate per income group
 income_death_mean <- ddply(income_death, .(IncRange), summarize, mean_dr=mean(Std))
-#Plot death rate per income group
+#Plot death rate of each income group
 boxplot(mean_dr~IncRange,income_death_mean)
 
 ##Education vs death
@@ -55,3 +55,16 @@ bus_ind_death[c(3:24)] <- lapply(bus_ind_death[c(3:24)], as.numeric)
 bus_ind_death$ManuRange <- cut(bus_ind_death$Manufacturing, breaks=c(2^(2:13)), dig.lab = 5)
 bus_ind_mean <- ddply(bus_ind_death, .(ManuRange), summarize, mean_dr=mean(Std))
 boxplot(mean_dr~ManuRange, bus_ind_mean)
+
+##Occupation
+colnames(ocu)[c(1,2)] <- c("Area", "Year")
+ocu_death <- merge(ocu, death_st_11)
+ocu_death <- na.omit(ocu_death)
+ocu_death[c(3:12)] <- lapply(ocu_death[c(3:12)], as.numeric)
+
+#Labourers
+ocu_death$LabRange <- cut(ocu_death$Labourers, breaks=seq(1.6, 24.3, 0.4), dig.lab = 5)
+ocu_death_mean <- ddply(ocu_death, .(LabRange), summarize, mean_dr=mean(Std))
+boxplot(mean_dr~LabRange, ocu_death_mean)
+
+#Professionals
