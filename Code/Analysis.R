@@ -46,3 +46,12 @@ eng_prof_death[c(2:8)] <- lapply(eng_prof_death[c(2:8)], as.numeric)
 eng_prof_death$NotProfRange <- cut(eng_prof_death$NotProf, breaks=seq(0, 34, 2), dig.lab = 5)
 eng_prof_death_mean <- ddply(eng_prof_death, .(NotProfRange), summarize, mean_dr=mean(Std))
 boxplot(mean_dr~NotProfRange, eng_prof_death_mean, main = "Death rate versus English Proficiency", ylab = "Death Rate per '000", xlab = "% English Proficiency")
+
+##Industry
+colnames(bus_ind)[c(1,2)] <- c("Area", "Year")
+bus_ind_death <- merge(bus_ind, death_st)
+bus_ind_death <- na.omit(bus_ind_death)
+bus_ind_death[c(3:24)] <- lapply(bus_ind_death[c(3:24)], as.numeric)
+bus_ind_death$ManuRange <- cut(bus_ind_death$Manufacturing, breaks=c(2^(2:13)), dig.lab = 5)
+bus_ind_mean <- ddply(bus_ind_death, .(ManuRange), summarize, mean_dr=mean(Std))
+boxplot(mean_dr~ManuRange, bus_ind_mean)
