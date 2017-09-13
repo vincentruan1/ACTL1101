@@ -1,3 +1,5 @@
+library(plyr)
+
 ##Income
 colnames(death_st)[c(1,2,3)] <- c("Area", "Year", "Std")
 colnames(employee_income)[c(1,2,3)] <- c("Area", "Year", "MedIncome")

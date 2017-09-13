@@ -1,5 +1,4 @@
 library(openxlsx)
-library(plyr)
 
 ##Population##
 pop <- read.xlsx("14100DS0002_2017-03.xlsx",
