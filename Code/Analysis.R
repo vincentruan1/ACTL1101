@@ -12,7 +12,7 @@ income_death <- na.omit(income_death)
 #Convert data to numeric
 income_death[c(3:6)] <- lapply(income_death[c(3:6)], as.numeric)
 #Group the data based on income ranges (30000, 35000, 40000, ...)
-income_death$IncRange <- cut(income_death$MedIncome, breaks=seq(30000, 80000, 5000), dig.lab=5)
+income_death$IncRange <- cut(income_death$MedIncome, breaks=seq(30000, 80000, 100), dig.lab=5)
 #Find the average death rate per income group
 income_death_mean <- ddply(income_death, .(IncRange), summarize, mean_dr=mean(Std))
 #Plot death rate of each income group
