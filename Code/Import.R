@@ -226,7 +226,7 @@ fam_size <- subset(fc, select = c(1,2,29:36))
 #Voluntary work / care
 vol <- subset(fc, select = c(1,2,37:41))
 
-#Internet connect
+#Internet connection
 int <- subset(fc, select = c(1,2,42:45))
 
 #Average rental and mortgage payments

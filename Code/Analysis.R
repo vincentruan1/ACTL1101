@@ -68,3 +68,39 @@ ocu_death_mean <- ddply(ocu_death, .(LabRange), summarize, mean_dr=mean(Std))
 boxplot(mean_dr~LabRange, ocu_death_mean)
 
 #Professionals
+ocu_death$ProRange <- cut(ocu_death$Professionals, breaks=seq(7.3, 47, 3), dig.lab = 5)
+ocu_death_pro_mean <- ddply(ocu_death, .(ProRange), summarize, mean_dr=mean(Std))
+boxplot(mean_dr~ProRange, ocu_death_pro_mean)
+
+#Female / Male
+colnames(age_dist_f)[c(1,2)] <- c("Area", "Year")
+colnames(age_dist_m)[c(1,2)] <- c("Area", "Year")
+f_death <- merge(age_dist_f, death_st)
+m_death <- merge(age_dist_m, death_st)
+
+#Family size
+colnames(fam_size)[c(1,2)] <- c("Area", "Year")
+fam_death <- merge(fam_size, death_st_11)
+fam_death <- na.omit(fam_death)
+colnames(fam_death)[10] <- "AvgFamSize"
+fam_death[c(3:11)] <- lapply(fam_death[c(3:11)], as.numeric)
+boxplot(Std~AvgFamSize, fam_death, outline = FALSE)
+
+#Internet connection
+colnames(int)[c(1,2)] <- c("Area", "Year")
+int_death <- merge(int, death_st_11)
+int_death <- na.omit(int_death)
+colnames(int_death)[c(3,6)] <- c("Broadband", "Total") 
+int_death[c(3:7)] <- lapply(int_death[c(3:7)], as.numeric)
+boxplot(Std~Broadband, int_death, outline = FALSE)
+boxplot(Std~Total, int_death, outline = FALSE)
+
+#Unemployment
+colnames(lbf)[c(1,2)] <- c("Area", "Year")
+lbf_death <- merge(lbf, death_st_11)
+lbf_death <- na.omit(lbf_death)
+lbf_death[c(3:7)] <- lapply(lbf_death[c(3:7)], as.numeric)
+colnames(lbf_death)[5] <- "UnemploymentR"
+lbf_death$UnemployRange <- cut(lbf_death$UnemploymentR, breaks=seq(1.9, 10.9, 1), dig.lab = 5)
+lbf_death_mean <- ddply(lbf_death, .(UnemployRange), summarize, mean_dr=mean(Std))
+boxplot(mean_dr~UnemployRange, lbf_death_mean, outline = FALSE)
