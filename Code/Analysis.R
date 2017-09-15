@@ -27,6 +27,7 @@ edu_death[3:9] <- lapply(edu_death[3:9], as.numeric)
 colnames(edu_death)[5] <- "Bachelor"
 death_bach_mean <- aggregate(Std ~  Bachelor, edu_death, mean)
 boxplot(Std~Bachelor, death_bach_mean, outline=FALSE)
+#abline(lm(Bachelor~Std, data=death_bach_mean))
 
 ##Population density
 colnames(pop_den)[c(1,2,3)] <- c("Area", "Year", "PopDen")
