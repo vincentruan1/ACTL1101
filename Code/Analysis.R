@@ -16,7 +16,7 @@ income_death$IncRange <- cut(income_death$MedIncome, breaks=seq(30000, 80000, 10
 #Find the average death rate per income group
 income_death_mean <- ddply(income_death, .(IncRange), summarize, mean_dr=mean(Std))
 #Plot death rate of each income group
-boxplot(mean_dr~IncRange,income_death_mean, title = "Death Rate versus Income", ylab = "Death Rate per '000", xlab = "Income")
+boxplot(mean_dr~IncRange,income_death_mean, main = "Death Rate versus Income", ylab = "Death Rate per '000", xlab = "Income")
 
 ##Education vs death
 colnames(edu)[c(1,2)] <- c("Area", "Year")
