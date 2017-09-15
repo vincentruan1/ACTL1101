@@ -16,7 +16,7 @@ income_death$IncRange <- cut(income_death$MedIncome, breaks=seq(30000, 80000, 10
 #Find the average death rate per income group
 income_death_mean <- ddply(income_death, .(IncRange), summarize, mean_dr=mean(Std))
 #Plot death rate of each income group
-boxplot(mean_dr~IncRange,income_death_mean)
+boxplot(mean_dr~IncRange,income_death_mean, title = "Death Rate versus Income", ylab = "Death Rate per '000", xlab = "Income")
 
 ##Education vs death
 colnames(edu)[c(1,2)] <- c("Area", "Year")
@@ -26,7 +26,7 @@ edu_death <- merge(edu, death_st_11)
 edu_death[3:9] <- lapply(edu_death[3:9], as.numeric)
 colnames(edu_death)[5] <- "Bachelor"
 death_bach_mean <- aggregate(Std ~  Bachelor, edu_death, mean)
-boxplot(Std~Bachelor, death_bach_mean, outline=FALSE)
+boxplot(Std~Bachelor, death_bach_mean, main = "Death Rate versus % Bachelor", xlab = "% Bachelor", ylab = "Death rate per '000", outline=FALSE)
 #abline(lm(Bachelor~Std, data=death_bach_mean))
 
 ##Population density
@@ -55,7 +55,7 @@ bus_ind_death <- na.omit(bus_ind_death)
 bus_ind_death[c(3:24)] <- lapply(bus_ind_death[c(3:24)], as.numeric)
 bus_ind_death$ManuRange <- cut(bus_ind_death$Manufacturing, breaks=c(2^(2:13)), dig.lab = 5)
 bus_ind_mean <- ddply(bus_ind_death, .(ManuRange), summarize, mean_dr=mean(Std))
-boxplot(mean_dr~ManuRange, bus_ind_mean)
+boxplot(mean_dr~ManuRange, bus_ind_mean, main = "Death rate versus No. of manufacturing", xlab = "No. of manufacturers in an area", ylab = "Death rate per '000")
 
 ##Occupation
 colnames(ocu)[c(1,2)] <- c("Area", "Year")
@@ -66,12 +66,12 @@ ocu_death[c(3:12)] <- lapply(ocu_death[c(3:12)], as.numeric)
 #Labourers
 ocu_death$LabRange <- cut(ocu_death$Labourers, breaks=seq(1.6, 24.3, 0.4), dig.lab = 5)
 ocu_death_mean <- ddply(ocu_death, .(LabRange), summarize, mean_dr=mean(Std))
-boxplot(mean_dr~LabRange, ocu_death_mean)
+boxplot(mean_dr~LabRange, ocu_death_mean, main = "Death rate versus % Labourer population", xlab = "% Labourer in an area", ylab = "Death rate per '000 population")
 
 #Professionals
 ocu_death$ProRange <- cut(ocu_death$Professionals, breaks=seq(7.3, 47, 3), dig.lab = 5)
 ocu_death_pro_mean <- ddply(ocu_death, .(ProRange), summarize, mean_dr=mean(Std))
-boxplot(mean_dr~ProRange, ocu_death_pro_mean)
+boxplot(mean_dr~ProRange, ocu_death_pro_mean, main = "Death rate versus % Professional population", xlab = "% Professional in an area", ylab = "Death rate per '000 population")
 
 #Female / Male
 colnames(age_dist_f)[c(1,2)] <- c("Area", "Year")
@@ -93,7 +93,7 @@ int_death <- merge(int, death_st_11)
 int_death <- na.omit(int_death)
 colnames(int_death)[c(3,6)] <- c("Broadband", "Total") 
 int_death[c(3:7)] <- lapply(int_death[c(3:7)], as.numeric)
-boxplot(Std~Broadband, int_death, outline = FALSE)
+boxplot(Std~Broadband, int_death, outline = FALSE, main = "Death rate versus % Broadband connection", xlab = "% Broadband connection in an area", ylab= "Death rate per '000 population")
 boxplot(Std~Total, int_death, outline = FALSE)
 
 #Unemployment
@@ -104,4 +104,4 @@ lbf_death[c(3:7)] <- lapply(lbf_death[c(3:7)], as.numeric)
 colnames(lbf_death)[5] <- "UnemploymentR"
 lbf_death$UnemployRange <- cut(lbf_death$UnemploymentR, breaks=seq(1.9, 10.9, 1), dig.lab = 5)
 lbf_death_mean <- ddply(lbf_death, .(UnemployRange), summarize, mean_dr=mean(Std))
-boxplot(mean_dr~UnemployRange, lbf_death_mean, outline = FALSE)
+boxplot(mean_dr~UnemployRange, lbf_death_mean, outline = FALSE, main = "Death rate vesus unemployment rate", xlab = "Unemployment rate", ylab = "Death rate per '000 population")
