@@ -115,3 +115,41 @@ inc_edu$TotalEdu <- rowSums(inc_edu[,c(5:9)])
 colnames(inc_edu)[2] <- "MedIncome"
 inc_edu <- na.omit(inc_edu)
 plot(MedIncome~TotalEdu, inc_edu, main = "Income versus Education", xlab = "% Population with Certificate or above", ylab = "Income", pch = 21, bg ="blue")
+
+#Percentage of Aboriginal people per area
+
+perc_ind <- subset(pop, select =c(2,3,79))
+colnames(perc_ind) = perc_ind[1,]
+perc_ind <- perc_ind[-c(1:3),]
+
+#Percentage of Aboriginal people against Standardised Death Rates
+
+#Clean up data
+colnames(perc_ind)[c(1,2,3)]<- c("Area","Year","PercInd")
+death_st_11<- death_st[death_st$Year == "2011",]
+death_st_11<- na.omit(death_st_11)
+perc_ind_death<- merge(perc_ind, death_st_11)
+perc_ind_death<- na.omit(perc_ind_death)
+perc_ind_death[c(3:4)]<- lapply(perc_ind_death[c(3:4)], as.numeric)
+
+#Download ggplot2 package
+library("ggplot2", lib.loc="/Library/Frameworks/R.framework/Versions/3.5/Resources/library")
+
+#Percentage of Aboriginal people vs Standardised Death rate
+graph1<-ggplot(data=perc_ind_death, aes(x=perc_ind_death$PercInd, y=perc_ind_death$Std))+ geom_point(color=alpha("black")) + geom_smooth(method=lm, color=alpha("red")) + labs(title="Percentage of Aboriginal people vs Standardised Death Rates", x="Percentage of Aboriginal people", y="Standardised Death Rate", colour="legend")+ theme_bw()
+
+#Line of best fit (regression line)
+reg<-lm(perc_ind_death$PercInd~perc_ind_death$Std)
+
+#Broken code ## PLEASE FIX UP! :)
+coeff=coefficients(reg)
+coeff(Intercept) perc_ind_death$Std
+
+#Correlation  between Percentage of Aboriginal people and Standardised Death rate
+cor(perc_ind_death$PercInd, perc_ind_death$Std)
+
+#Annotation for the gradient of regression line
+graph1 + annotate(geom="text", x=30, y=13, label="Gradient of regression line = 2.836927", colour= "blue", size=5)
+
+#Remove outlier by limiting axes
+graph1 + coord_fixed(xlim=c(0,30), ylim=c(2,12))
