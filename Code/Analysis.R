@@ -26,7 +26,7 @@ edu_death <- merge(edu, death_st_11)
 edu_death[3:9] <- lapply(edu_death[3:9], as.numeric)
 colnames(edu_death)[5] <- "Bachelor"
 death_bach_mean <- aggregate(Std ~  Bachelor, edu_death, mean)
-boxplot(Std~Bachelor, death_bach_mean, main = "Death Rate versus % Bachelor", xlab = "% Bachelor", ylab = "Death rate per '000", outline=FALSE)
+boxplot(Std~Bachelor, death_bach_mean, main = "Death Rate versus % Bachelor", xlab = "% Bachelor", ylab = "Death rate per '000", outline=FALSE, ylim = c(0,10))
 #abline(lm(Bachelor~Std, data=death_bach_mean))
 
 ##Population density
@@ -105,3 +105,13 @@ colnames(lbf_death)[5] <- "UnemploymentR"
 lbf_death$UnemployRange <- cut(lbf_death$UnemploymentR, breaks=seq(1.9, 10.9, 1), dig.lab = 5)
 lbf_death_mean <- ddply(lbf_death, .(UnemployRange), summarize, mean_dr=mean(Std))
 boxplot(mean_dr~UnemployRange, lbf_death_mean, outline = FALSE, main = "Death rate vesus unemployment rate", xlab = "Unemployment rate", ylab = "Death rate per '000 population")
+
+#Income vs Education
+employee_income_noyear <- employee_income[,-2]
+edu_noyear <- edu[,-2]
+inc_edu <- merge(employee_income_noyear, edu_noyear)
+inc_edu[c(2:10)] <- lapply(inc_edu[c(2:10)], as.numeric)
+inc_edu$TotalEdu <- rowSums(inc_edu[,c(5:9)])
+colnames(inc_edu)[2] <- "MedIncome"
+inc_edu <- na.omit(inc_edu)
+plot(MedIncome~TotalEdu, inc_edu, main = "Income versus Education", xlab = "% Population with Certificate or above", ylab = "Income", pch = 21, bg ="blue")
