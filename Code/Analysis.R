@@ -133,7 +133,7 @@ perc_ind_death<- na.omit(perc_ind_death)
 perc_ind_death[c(3:4)]<- lapply(perc_ind_death[c(3:4)], as.numeric)
 
 #Download ggplot2 package
-library("ggplot2", lib.loc="/Library/Frameworks/R.framework/Versions/3.5/Resources/library")
+library(ggplot2)
 
 #Percentage of Aboriginal people vs Standardised Death rate
 graph1<-ggplot(data=perc_ind_death, aes(x=perc_ind_death$PercInd, y=perc_ind_death$Std))+ geom_point(color=alpha("black")) + geom_smooth(method=lm, color=alpha("red")) + labs(title="Percentage of Aboriginal people vs Standardised Death Rates", x="Percentage of Aboriginal people", y="Standardised Death Rate", colour="legend")+ theme_bw()
@@ -149,7 +149,7 @@ coeff(Intercept) perc_ind_death$Std
 cor(perc_ind_death$PercInd, perc_ind_death$Std)
 
 #Annotation for the gradient of regression line
-graph1 + annotate(geom="text", x=30, y=13, label="Gradient of regression line = 2.836927", colour= "blue", size=5)
+graph1 + annotate(geom="text", x=30, y=13, label="Gradient of regression line = 2.836927", colour= "blue", size=5) + coord_trans(x="log2", y="log2")
 
 #Remove outlier by limiting axes
 graph1 + coord_fixed(xlim=c(0,30), ylim=c(2,12))
