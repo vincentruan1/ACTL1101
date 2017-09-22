@@ -37,6 +37,7 @@ pop_den_death[c(2:4)] <- lapply(pop_den_death[c(2:4)], as.numeric)
 pop_den_death$PopDenRange <- cut(pop_den_death$PopDen, breaks=c(0,2^(0:14)), dig.lab = 5)
 pop_den_death_mean <- ddply(pop_den_death, .(PopDenRange), summarize, mean_dr=mean(Std))
 boxplot(mean_dr~PopDenRange, pop_den_death_mean, main = "Death rate versus Population Density", ylab = "Death Rate per '000", xlab = "Population Density per sqkm")
+plot(Std~PopDen, pop_den_death)
 
 ##English proficiency
 colnames(eng_prof)[c(1,2)] <- c("Area", "Year")
@@ -153,3 +154,26 @@ graph1 + annotate(geom="text", x=30, y=13, label="Gradient of regression line = 
 
 #Remove outlier by limiting axes
 graph1 + coord_fixed(xlim=c(0,30), ylim=c(2,12))
+
+#
+Population <- read.xlsx(file.choose(), startRow = 9)
+
+Population <- Population[,-c(4:74)]
+
+Population <- Population[,-c(9:21)]
+
+names(Population) <- c("LGA Code", "Council Name", "Year","Fertility Rate", "Deaths", "Standarised Death Rate per 1000", "delete", "Percentage of Aborignals")
+
+Population$delete<- NULL
+
+Population$`Percentage of Aborignals`<- as.numeric(Population$`Percentage of Aborignals`)
+
+Population$`Fertility Rate` <- as.numeric(Population$`Fertility Rate`)
+
+Population$`Deaths` <- as.numeric(Population$`Deaths`)
+
+Population$`Standarised Death Rate per 1000` <- as.numeric(Population$`Standarised Death Rate per 1000`)
+
+Population <- Population[complete.cases(Population),]
+
+plot( log(Population$`Percentage of Aborignals`),Population$`Fertility Rate`, xlab = "Log Of Percentage of Aboriginals", ylab = "Fertility Rate", main = "Fertility Rate vs Aboriginal Percentage Rate")
