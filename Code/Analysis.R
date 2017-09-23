@@ -1,4 +1,6 @@
 library(plyr)
+library(ggplot2)
+library(quantreg)
 
 ##Income
 colnames(death_st)[c(1,2,3)] <- c("Area", "Year", "Std")
@@ -11,12 +13,9 @@ income_death <- merge(death_st_13, employee_income)
 income_death <- na.omit(income_death)
 #Convert data to numeric
 income_death[c(3:6)] <- lapply(income_death[c(3:6)], as.numeric)
-#Group the data based on income ranges (30000, 35000, 40000, ...)
-income_death$IncRange <- cut(income_death$MedIncome, breaks=seq(30000, 80000, 1000), dig.lab=5)
-#Find the average death rate per income group
-income_death_mean <- ddply(income_death, .(IncRange), summarize, mean_dr=mean(Std))
 #Plot death rate of each income group
-boxplot(mean_dr~IncRange,income_death_mean, main = "Death Rate versus Income", ylab = "Death Rate per '000", xlab = "Income")
+ggplot(income_death_mean, aes(x = MedIncome, y = Std)) + geom_boxplot(aes(group = cut_width(MedIncome, 1000))) + xlim(35000, 55000)
+ggplot(income_death_mean, aes(x = MedIncome, y = Std)) + geom_boxplot(aes(group = cut_width(MedIncome, 1000))) + xlim(55000, 70000)
 
 ##Education vs death
 colnames(edu)[c(1,2)] <- c("Area", "Year")
@@ -27,17 +26,19 @@ edu_death[3:9] <- lapply(edu_death[3:9], as.numeric)
 colnames(edu_death)[5] <- "Bachelor"
 death_bach_mean <- aggregate(Std ~  Bachelor, edu_death, mean)
 boxplot(Std~Bachelor, death_bach_mean, main = "Death Rate versus % Bachelor", xlab = "% Bachelor", ylab = "Death rate per '000", outline=FALSE, ylim = c(0,10))
-#abline(lm(Bachelor~Std, data=death_bach_mean))
+ggplot(death_bach_mean, aes(x = Bachelor, y = Std)) + geom_point() + geom_smooth(method = "lm")
 
 ##Population density
 colnames(pop_den)[c(1,2,3)] <- c("Area", "Year", "PopDen")
 pop_den_death <- merge(pop_den, death_st_11)
 pop_den_death <- na.omit(pop_den_death)
 pop_den_death[c(2:4)] <- lapply(pop_den_death[c(2:4)], as.numeric)
-pop_den_death$PopDenRange <- cut(pop_den_death$PopDen, breaks=c(0,2^(0:14)), dig.lab = 5)
-pop_den_death_mean <- ddply(pop_den_death, .(PopDenRange), summarize, mean_dr=mean(Std))
-boxplot(mean_dr~PopDenRange, pop_den_death_mean, main = "Death rate versus Population Density", ylab = "Death Rate per '000", xlab = "Population Density per sqkm")
-plot(Std~PopDen, pop_den_death)
+ggplot(pop_den_death, aes(x = PopDen, y = Std)) + geom_point() + scale_x_log10() + geom_smooth(method = "lm")
+
+##Income versus population density
+inc_pop_den <- merge(pop_den, employee_income)
+inc_pop_den[c(3:6)] <- lapply(inc_pop_den[c(3:6)], as.numeric)
+ggplot(inc_pop_den, aes(x = PopDen, y = MedIncome)) + geom_
 
 ##English proficiency
 colnames(eng_prof)[c(1,2)] <- c("Area", "Year")
@@ -45,6 +46,8 @@ eng_prof_death <- merge(eng_prof, death_st_11)
 eng_prof_death <- na.omit(eng_prof_death)
 colnames(eng_prof_death)[6] <- "NotProf"
 eng_prof_death[c(2:8)] <- lapply(eng_prof_death[c(2:8)], as.numeric)
+ggplot(eng_prof_death, aes(x = NotProf, y = Std)) + geom_boxplot(aes(group = cut_width(NotProf, 1)))
+
 eng_prof_death$NotProfRange <- cut(eng_prof_death$NotProf, breaks=seq(0, 34, 2), dig.lab = 5)
 eng_prof_death_mean <- ddply(eng_prof_death, .(NotProfRange), summarize, mean_dr=mean(Std))
 boxplot(mean_dr~NotProfRange, eng_prof_death_mean, main = "Death rate versus English Proficiency", ylab = "Death Rate per '000", xlab = "% English Proficiency")
@@ -86,7 +89,7 @@ fam_death <- merge(fam_size, death_st_11)
 fam_death <- na.omit(fam_death)
 colnames(fam_death)[10] <- "AvgFamSize"
 fam_death[c(3:11)] <- lapply(fam_death[c(3:11)], as.numeric)
-boxplot(Std~AvgFamSize, fam_death, outline = FALSE)
+ggplot(fam_death, aes(x = AvgFamSize, y = Std)) + geom_point() + geom_smooth(method = "lm")
 
 #Internet connection
 colnames(int)[c(1,2)] <- c("Area", "Year")
@@ -94,8 +97,7 @@ int_death <- merge(int, death_st_11)
 int_death <- na.omit(int_death)
 colnames(int_death)[c(3,6)] <- c("Broadband", "Total") 
 int_death[c(3:7)] <- lapply(int_death[c(3:7)], as.numeric)
-boxplot(Std~Broadband, int_death, outline = FALSE, main = "Death rate versus % Broadband connection", xlab = "% Broadband connection in an area", ylab= "Death rate per '000 population")
-boxplot(Std~Total, int_death, outline = FALSE)
+ggplot(int_death, aes(x = Total, y = Std)) + geom_point(aes(group = cut_width(Total, 5))) + geom_smooth(method = "lm")
 
 #Unemployment
 colnames(lbf)[c(1,2)] <- c("Area", "Year")
@@ -103,6 +105,8 @@ lbf_death <- merge(lbf, death_st_11)
 lbf_death <- na.omit(lbf_death)
 lbf_death[c(3:7)] <- lapply(lbf_death[c(3:7)], as.numeric)
 colnames(lbf_death)[5] <- "UnemploymentR"
+ggplot(lbf_death, aes(x = UnemploymentR, y = Std)) + geom_boxplot(aes(group = cut_width(UnemploymentR, 0.5))) + geom_quantile()
+
 lbf_death$UnemployRange <- cut(lbf_death$UnemploymentR, breaks=seq(1.9, 10.9, 1), dig.lab = 5)
 lbf_death_mean <- ddply(lbf_death, .(UnemployRange), summarize, mean_dr=mean(Std))
 boxplot(mean_dr~UnemployRange, lbf_death_mean, outline = FALSE, main = "Death rate vesus unemployment rate", xlab = "Unemployment rate", ylab = "Death rate per '000 population")
@@ -115,10 +119,9 @@ inc_edu[c(2:10)] <- lapply(inc_edu[c(2:10)], as.numeric)
 inc_edu$TotalEdu <- rowSums(inc_edu[,c(5:9)])
 colnames(inc_edu)[2] <- "MedIncome"
 inc_edu <- na.omit(inc_edu)
-plot(MedIncome~TotalEdu, inc_edu, main = "Income versus Education", xlab = "% Population with Certificate or above", ylab = "Income", pch = 21, bg ="blue")
+ggplot(inc_edu, aes(x = TotalEdu, y = MedIncome)) + geom_boxplot(aes(group = cut_width(TotalEdu, 5)))
 
 #Percentage of Aboriginal people per area
-
 perc_ind <- subset(pop, select =c(2,3,79))
 colnames(perc_ind) = perc_ind[1,]
 perc_ind <- perc_ind[-c(1:3),]
@@ -132,9 +135,6 @@ death_st_11<- na.omit(death_st_11)
 perc_ind_death<- merge(perc_ind, death_st_11)
 perc_ind_death<- na.omit(perc_ind_death)
 perc_ind_death[c(3:4)]<- lapply(perc_ind_death[c(3:4)], as.numeric)
-
-#Download ggplot2 package
-library(ggplot2)
 
 #Percentage of Aboriginal people vs Standardised Death rate
 graph1<-ggplot(data=perc_ind_death, aes(x=perc_ind_death$PercInd, y=perc_ind_death$Std))+ geom_point(color=alpha("black")) + geom_smooth(method=lm, color=alpha("red")) + labs(title="Percentage of Aboriginal people vs Standardised Death Rates", x="Percentage of Aboriginal people", y="Standardised Death Rate", colour="legend")+ theme_bw()
@@ -155,8 +155,8 @@ graph1 + annotate(geom="text", x=30, y=13, label="Gradient of regression line = 
 #Remove outlier by limiting axes
 graph1 + coord_fixed(xlim=c(0,30), ylim=c(2,12))
 
-#
-Population <- read.xlsx(file.choose(), startRow = 9)
+#PLEASE ADD YOUR COMMENTS TO THIS!
+Population <- read.xlsx("14100DS0002_2017-03.xlsx"), startRow = 9)
 
 Population <- Population[,-c(4:74)]
 
