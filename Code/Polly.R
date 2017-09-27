@@ -6,6 +6,7 @@ colnames(death_st)[c(1, 2, 3)] <- c("Area", "Year", "Std")
 death_st_11 <- death_st[death_st$Year == "2011",]
 perc_ind_death <- merge(perc_ind, death_st_11)
 perc_ind_death[c(3:4)] <- lapply(perc_ind_death[c(3:4)], as.numeric)
+
 # Create scatter plot for percentage of Aboriginal people and Standardised death rate
 ggplot(na.omit(perc_ind_death),
        aes(x = PercInd, y = Std)) + 
