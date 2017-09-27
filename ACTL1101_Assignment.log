@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.9.11)  22 SEP 2017 16:52
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.9.11)  27 SEP 2017 12:08
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -781,49 +781,49 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 (./ACTL1101_Assignment.aux)
 \openout1 = `ACTL1101_Assignment.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 15.
-LaTeX Font Info:    Try loading font information for TS1+cmr on input line 15.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 14.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 14.
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    ... okay on input line 14.
 LaTeX Font Info:    Checking defaults for LS1/libertinust1math/m/n on input lin
-e 15.
+e 14.
 LaTeX Font Info:    Try loading font information for LS1+libertinust1math on in
-put line 15.
+put line 14.
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/libertinust1math/ls1libertinust1m
 ath.fd
 File: ls1libertinust1math.fd 2016/03/23 Fontinst v1.933 font definitions for LS
 1/libertinust1math.
 )
-LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    ... okay on input line 14.
 LaTeX Font Info:    Checking defaults for LS2/libertinust1mathsym/m/n on input 
-line 15.
+line 14.
 LaTeX Font Info:    Try loading font information for LS2+libertinust1mathsym on
- input line 15.
+ input line 14.
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/libertinust1math/ls2libertinust1m
 athsym.fd
 File: ls2libertinust1mathsym.fd 2015/04/17 v1.1.2-latex LibertinusT1Mathsym LS2
  font definitions
 )
-LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    ... okay on input line 14.
 LaTeX Font Info:    Try loading font information for T1+LinuxLibertineT-TLF on 
-input line 15.
+input line 14.
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/libertine/T1LinuxLibertineT-TLF.f
 d
@@ -831,7 +831,7 @@ File: T1LinuxLibertineT-TLF.fd 2017/03/20 (autoinst) Font definitions for T1/Li
 nuxLibertineT-TLF.
 )
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 12.0pt on input line 15.
+(Font)              scaled to size 12.0pt on input line 14.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -869,7 +869,7 @@ LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
 
 \c@mv@tabular=\count107
 \c@mv@boldtabular=\count108
-LaTeX Info: Redefining \microtypecontext on input line 15.
+LaTeX Info: Redefining \microtypecontext on input line 14.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
@@ -944,11 +944,11 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 20.74pt on input line 16.
+(Font)              scaled to size 20.74pt on input line 15.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 14.4pt on input line 16.
+(Font)              scaled to size 14.4pt on input line 15.
 LaTeX Font Info:    Try loading font information for LS2+libertinust1mathex on 
-input line 16.
+input line 15.
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/libertinust1math/ls2libertinust1m
 athex.fd
@@ -956,7 +956,7 @@ File: ls2libertinust1mathex.fd 2016/03/15 v1.0.0-latex LibertinusMath extension
 s LS2 font definitions
 )
 LaTeX Font Info:    Try loading font information for LS1+libertinust1mathbb on 
-input line 16.
+input line 15.
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/libertinust1math/ls1libertinust1m
 athbb.fd
@@ -964,13 +964,17 @@ File: ls1libertinust1mathbb.fd 2016/08/22 latex LibertinusT1Mathbb LS1 font def
 initions
 )
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 17.28pt on input line 17.
+(Font)              scaled to size 17.28pt on input line 16.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/b/n' will be
-(Font)              scaled to size 17.28pt on input line 17.
+(Font)              scaled to size 17.28pt on input line 16.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/b/n' will be
-(Font)              scaled to size 14.4pt on input line 19.
+(Font)              scaled to size 14.4pt on input line 18.
+ [1
+
+{/usr/local/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2] [3]
+ [4] [5]
 LaTeX Font Info:    Try loading font information for TS1+LinuxLibertineT-TLF on
- input line 24.
+ input line 81.
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/libertine/TS1LinuxLibertineT-TLF.
 fd
@@ -978,33 +982,33 @@ File: TS1LinuxLibertineT-TLF.fd 2017/03/20 (autoinst) Font definitions for TS1/
 LinuxLibertineT-TLF.
 )
 LaTeX Font Info:    Font shape `TS1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 12.0pt on input line 24.
+(Font)              scaled to size 12.0pt on input line 81.
 Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `LinuxLibertineT-TLF' (encoding: TS1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
- [1
-
-{/usr/local/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-[2] (./ACTL1101_Assignment.aux) ) 
+ [6] (./ACTL1101_Assignment.aux) ) 
 Here is how much of TeX's memory you used:
- 7164 strings out of 492990
- 113403 string characters out of 6132636
- 189476 words of memory out of 5000000
- 10561 multiletter control sequences out of 15000+600000
- 58419 words of font info for 68 fonts, out of 8000000 for 9000
+ 7297 strings out of 492990
+ 117008 string characters out of 6132636
+ 197432 words of memory out of 5000000
+ 10601 multiletter control sequences out of 15000+600000
+ 86331 words of font info for 151 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 55i,6n,54p,290b,208s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/local/texlive/2017/texmf-dist/fonts/enc/
-dvips/libertine/lbtn_naooyc.enc}{/usr/local/texlive/2017/texmf-dist/fonts/enc/d
-vips/libertine/lbtn_nh77jq.enc}{/usr/local/texlive/2017/texmf-dist/fonts/enc/dv
-ips/libertine/lbtn_76gpa5.enc}</usr/local/texlive/2017/texmf-dist/fonts/type1/p
-ublic/libertine/LinLibertineT.pfb></usr/local/texlive/2017/texmf-dist/fonts/typ
-e1/public/libertine/LinLibertineTB.pfb>
-Output written on ACTL1101_Assignment.pdf (2 pages, 171676 bytes).
+ 55i,6n,54p,2441b,208s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/local/texlive/2017/texmf-dist/fonts/enc
+/dvips/libertinust1math/libusMI.enc}{/usr/local/texlive/2017/texmf-dist/fonts/e
+nc/dvips/libertinust1math/libusMR.enc}{/usr/local/texlive/2017/texmf-dist/fonts
+/enc/dvips/libertine/lbtn_naooyc.enc}{/usr/local/texlive/2017/texmf-dist/fonts/
+enc/dvips/libertine/lbtn_nh77jq.enc}{/usr/local/texlive/2017/texmf-dist/fonts/e
+nc/dvips/libertine/lbtn_76gpa5.enc}</usr/local/texlive/2017/texmf-dist/fonts/ty
+pe1/public/libertinust1math/LibertinusT1Math.pfb></usr/local/texlive/2017/texmf
+-dist/fonts/type1/public/libertine/LinLibertineT.pfb></usr/local/texlive/2017/t
+exmf-dist/fonts/type1/public/libertine/LinLibertineTB.pfb>
+Output written on ACTL1101_Assignment.pdf (6 pages, 308545 bytes).
 PDF statistics:
- 24 PDF objects out of 1000 (max. 8388607)
- 17 compressed objects within 1 object stream
+ 44 PDF objects out of 1000 (max. 8388607)
+ 32 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  10753 words of extra memory for PDF output out of 12000 (max. 10000000)
 

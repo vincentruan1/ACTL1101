@@ -1,5 +1,4 @@
-\documentclass[12pt,a4paper,oneside,reqno]{article}
-%\usepackage{lipsum}
+\documentclass[12pt,a4paper]{article}
 \usepackage{geometry}
 \usepackage[utf8]{inputenc}
 \usepackage [T1]{fontenc}
@@ -9,32 +8,99 @@
 \usepackage{enumitem}
 \usepackage{graphicx,float}
 \title{ACTL1101 Group Assignment}
-\author{Airfun Javam, Joel Huang, Polly Liang,\\ Vania Valentina, Vincent Ruan.}
+\author{Airfun Javam, Joel Huang, Polly Liang,\\Vania Setyawan, Vincent Ruan.}
 \date{}
 
 \begin{document}
 	\maketitle
 	\section{Introduction}
 	Insert introduction here.
-	\subsection{Population Density}
-	Population density is a measure of the number of residents residing in a given area. A low population density is often associated with its rural nature, where access to health care services may be severely impeded. 
+	\subsection{Mortality in Aboriginal and Torres Strait Islander}
+	Aboriginal and Torres Strait Islander people are more likely than non-Indigenous people to die and this is supported by the graph of the standardised death rates against the population of Aboriginal and Torres Strait Islander people as a proportion of the total population in Local Government Areas, with a consistently ascending trend in the relationship between them except for a few considerable outliers. The correlation between the percentage of Aboriginal people and Standardised death rate is 0.6363612, proving that there is an increasing relationship between them. 
 	
-	Due to geographical remoteness, residents may need to travel longer distances to access medical services such as emergency care and primary care. Access to healthcare is a particular important factor in reducing population mortality
+	INSERT DIAGRAM HERE (Life Expectancy at Birth of Indigenous and Non Indigenous People)
+	
+	As seen in the barplots of the life expectancies of Indigenous and non-Indigenous males and females using Life expectancy at selected ages for Aboriginal and Torres Strait Islander and Non-Indigenous Australians by Headline Australia estimates 2010-2012 (table 1.1), a significant gap between the life expectancies of indigenous people and non-indigenous people can be identified. The estimates by Headline Australia show that an Indigenous male of age year has life expectancy of about 69 years, while a non-Indigenous male could expect to live to 80 years. An Indigenous female of age 0 year has expectancy of 74 years, while a non-Indigenous female could expect to live to 83 years. 
+	The fact that Indigenous people at almost every range of ages have lower expectancies of life than non-Indigenous people reflects the trend of higher population of Aboriginal and Torres Strait Islander with higher mortality rates. 
+	
+	INSERT DIAGRAM HERE
+	
+	PLEASE PUT THIS INTO PARAGRAPH FORM
+	
+	The reasons why Aboriginal people live shorter lives than non-Indigenous people may include:
+	
+	- “poor health and nutrition – research found that about 80\% of the life expectancy difference is due to preventable chronic conditions, such as type 2 diabetes and cardiovascular disease”
+	
+	- low education level as there are more Indigenous people living in Disadvantaged areas than non-indigenous people, therefore there is less access to high level of education.
+	
+	- hidden racism.
+	
+	- high unemployment as the Indigenous people have lower education level than non-Indigenous people and so they may not have required certificates for jobs with particular requirement of skills. Although discrimination by employers due to race is illegal, there could still be some degree of hidden racism resulting in unemployment of Aboriginal and Torres Strait Islander.  
+	
+	- poverty linked to low education and high unemployment. 
+	
+	
+	Aboriginals as stated above have a much higher mortality rate than average Australia’s. the cause of this has various factors, however Socio-economic disadvantage is known to  be a large factor in death rates.  SEIFA is a ranking that is produced by the ABS to rank Local Government Areas within Australia to highlight the relative socioeconomic advantage and disadvantage. Making this the perfect measure for causes of the increased mortality rates of aboriginals. SEIFA is split up into four indexes, The Index of Relative Socioeconomic Disadvantage (IRSD), The Index of Relative Socio-Economic Advantage and Disadvantage (IRSAD), The Index of Education and Occupation (IEO), and The Index of Economic Resources (IER).  For this Study, the index of socioeconomic disadvantage was used to highlight the overall picture, and to see if this is an issue affecting native Australian’s. Starting out the best way to provide evidence what aspects of life affect mortality, it is best to compare IRSD to the death rate initially.  The dots in both graphs are the medians of each decile relative to the y axis, this is to give a basic outline of how being disadvantage affects death, and how aboriginals live in areas where disadvantage levels are higher, impacting mortality.
+	The graph Disadvantage and Death rates is called a local regression or a LOESS regression. A LOESS regression is utilised as it provides a smooth curve for a scatterplot, where a pattern would be near impossible to find without any statistical manipulation assisting in diagnostics. However, the main reason for its utilisation is due to the fact, it best suits Nonparametric variable which in this case would be the Decile score of LGA’s.  Moreover, the loess makes no assumptions about the relationship between the two variables as the value of which at a location along the x-axis is determined only by the points in that vicinity, hence an accurate measure is created. The decile score is a ranking by percentages, i.e. decile 1 means lowest 10\% (highest disadvantage), then a score of two is the second-lowest 10\%, this continuous s to a decile of 10 which is the top 10\% (least disadvantaged).  Therefore, decile is an order statistic which means it is non-parametric, highlighted the benefits of using a loess regression. For Disadvantage and Death rate, the loess shows the decreasing trend, meaning the higher the decile scores the lower the death rate. This is further trend is further proven with a correlation between the two factors being -0.509068 (seen in R code). A negative correlation is seen, meaning as the Decile ranking decreases, the death rate increases and vice versa, highlighting how Disadvantages in the socio-economic realm affects mortality. Further expanding on this point, a correlation test was performed in R using Pearson’s product-moment correlation. A test statistic of t= -11.74 is used with a resulting p value < 2.2e-16, meaning we reject the fact they are not correlated. This means they are correlated, however the with the 95\% confidence interval being (-0.5785883, -0.4322040), it is statistically correct to say that the Decile and Death are negatively correlated, with the sample estimate as stated previously being -0.509068. Therefore, we are certain that these two variables are negatively correlated. Finally, covariance was   -1.538504 between Death rates and Disadvantage, meaning that the two values are inversely proportional. Therefore, as seen in the discussion, that Death rate is not only associated to Disadvantage rate they are correlated, with a high confidence as well as their covariances showing the higher decile the lower death rate.
+	
+	INSERT DISADVANTAGE AND DEATH RATES HERE.
+	
+	As shown above, an area with a higher disadvantage means a higher death rate, this same technique is then used to show that aboriginals live in areas of high socio-economic disadvantage resulting in higher mortality rates. A loess regression is utilised again to show the relationship between Disadvantage decile and Aboriginal percentages in the area. We can observe a downwards trend which highlights again that Aboriginals tend to be in areas with lower Decile rankings. This trend line is an example of how loess can be used to show a trend within a such variables. Furthermore, we have done testing on the correlation and covariance with the results being -0.4433666 and -5.987227, respectively. This negative correlation again demonstrations that the relationship is one where, a higher decile equates to a lower number of aboriginals. And a large negative covariance as seen highlights the inversely proportional nature of aboriginals and being disadvantaged, concluding that aboriginals live in areas that are at a greater disadvantaged. Finally, a Pearson’s product-moment correlation test was performed which resulted in the 95\% confidence interval being (-0.5192267, -0.3605747), further cementing in the relationship between aboriginals and their higher proportions in increased disadvantaged areas. Therefore, it is clear that aboriginals live in areas where there is greater disadvantages.
+	
+	INSERT DIAGRAM FOR DISADVANTAGE DECILE AND ABORGINAL PERCENTAGES
+	
+	Overall it is observable that a transitive relation exists between Death, Disadvantage, and the aboriginal population. As death rate is affected by disadvantages in the socio-economic realm, this in turn affects aboriginals as they exist in areas where disadvantages occur at greater lengths.  It is already knowing that aboriginals suffer greater mortality rates than average Australia’s, with the above insight into the issue of disadvantages and death rates, it can be noted aboriginals suffer high mortality rates due to their location and their socio-economic status.
+	\subsection{Education and its effects on Occupation}
+	INSERT DIAGRAM HERE
+	
+	The data observes that bachelor’s degree percentage of a particular area has a strong positive correlation of 0.9711037 to percentage of professionals. On the other hand, it is strongly negatively correlated with value of -0.826013 to percentage of. The reason is quite straightforward, to be a professional one needs to at least have a bachelor’s degree which gives the minimum required training and specialized knowledge for a particular field. As percentage of people with bachelor’s degree increase, this allows more chances of people being employed as professionals as a result, percentage of labourers in that area will decrease.
+	
+	INSERT DIGRAM HERE
+	
+	To further support the analysis, we got some statistics from Australia’s STEM Workforce report for 2016. Although the data is limited to STEM-qualified people, it clearly shows the huge difference of percentage of people with university level qualifications employed as professionals compared to those that only hold VET qualifications. It also supports our previous data for labourers as only 3\% of people with university level qualifications are employed as labourers whereas for VET qualified people, 9\% of them are employed as labourers.
+	
+	
+	\subsection{Occupation and its effects on Income}
+	In the previous section, it was seen that education has a significant impact on occupation. In this section, the link between occupation and income is examined. The occupations used previously, namely Professionals and Labourers, continue to be used here to maintain consistently and comparability, but also since they are in direct opposition with one another to highlight differences.
+	
+	INSERT DATA FROM ABS INCOME AND EMPLOYMENT DATA
+	
+	REPLACE WITH ACTUAL FIGURE NAME compares a scatter plot of Median Total Income against Persons Employed as Professionals with the corresponding one for Labourers. Each data point represents one LGA (or Local Government Area) as determined by the ABS in the given data.
+	
+	Upon initial inspection of the LOESS (or local regression) line, an upward and downward trend can clearly be seen for Professionals and Labourers respectively. These impressions are confirmed when the covariances are calculated: in the case for Professionals, the covariance is 31,898.84, producing a standardised correlation coefficient of 0.42 after accounting for standard deviations. In the case for Labourers, this is -25,512.96 for the covariance and -0.53 for correlation coefficient. (see Section 7.5: Occupation and Income) The respective positive and negative nature of these measures reflects their relationship, that is, an increase in the number of Professionals is accompanied by an increase in Income and vice versa for Labourers. It should be noted however, that while the magnitude of correlation coefficient only indicates a moderate association, this is likely due to correlation capturing only linear dependence; the variables do not seem to strictly follow a linear relationship.
+	
+	In REPLACE WITH ACTUAL FIGURE NAME, two LGAs, Peppermint Grove and Cherbourg, have been deliberately selected based on income. From the given ABS data, the median income for Peppermint Grove was \$82,092 while that for Cherbourg was \$35,713. If one investigates the occupations taken by the respective residents, for Peppermint Grove, 41.1\% work as Professionals while only 3.2\% work as Labourers (not shown). This is in stark contrast to Cherbourg where 8.0\% are Professionals but 29.0\% are Labourers. Peppermint Grove also has a significantly larger proportion of their residents working as Managers than Cherbourg. These results clearly support the notion that more Professionals lead to higher Income while the opposite is true for for Labourers.
+	
+	The most part of these findings are what one would expect, given the nature of the job market. Professional occupations generally require a higher level of education and training, and those who perform such roles would expect to be compensated for their additional time and resources spent reaching those levels of proficiency. This is as opposed to Labourer occupations which by definition require less educational attainment. In addition, the fact that only a moderate proportion of the total population achieve Bachelor-level degrees for example (see Section 4), required for many Professional occupations, increases demand and thus the income of Professionals relative to Labourers. This result comes from an elementary application of Economics through the Law of Supply and Labour Market Outcomes. An examination of additional ATO (or Australian Taxation Office) data in Figure 5.3, highlights this by displaying the highest and lowest ten occupations by income.
+	
+	INSERT PLOTS (PLEASE INTEGRATE PROPERLY!)
+	\newpage
+	\subsection{Rural }
+	In the recent decade, the disparity between urban and rural mortalities have been increasing. We often associate rural areas as being sparsely populated, with access to health care severely impeded by geographical remoteness. This means residents of rural areas are travelling long distances to access medical services such as primary and emergency care. Access to healthcare is a particularly important factor in reducing the rate mortality as it
 	\begin{itemize}
-		\item Improving physical, mental and social health,
-		\item Detection and prevention of illnesses,
-		\item Treatment of preventable diseases.
+		\item Improves physical, mental and social health,
+		\item Allows for the detection and prevention of illnesses,
+		\item Provides treatment of preventable diseases.
 	\end{itemize}
 
-	This is reflected in 6.7\% standardised deaths in areas of low population density, compared to 5.5\% in areas of high population density. A low population density is also associated with the rural nature of an area. Talk about economics of scale here.
+	The impact of quality health care is reflected in the higher standardised deaths per $ 100,000 $ of 6.7 in areas of sparse population density, compared to 5.5 standardised deaths per $ 100,000 $ in areas of high population density. (REWORD) This can be attributed to the inadequate concentration of public infrastructure that provide sanitation and household waste services, as well as hospital infrastructure that provide generalist and specialist medical care. This means for patients that require ongoing medical treatment, they will need to travel to capital cities, which represent a major disruption to their occupation and lifestyle.
 	
-	Whilst residents of medium or high population density are able to access more timely medical services due to well established public transport and infrastructure, they however face a larger issue of long waiting times and insufficient medical staff per residence.
+	The excess mortality in rural areas can also be attributed to the underlying socioeconomic inequality, with a greater concentration of high income workers located in urban areas. Subsequently, this reduces the disposable income available to the household, (REWORD) reduces the affordability of healthcare. 
 	
-	Governments have responded to the shortages of doctors in rural areas by introducing a Medical Rural Bonded Scholarship (MRBS) Scheme. However, the ex
-	\subsection{Internet Access}
-	Rural areas are often associated with lower public and private investment and in turn more expensive access to internet
+	INSERT INCOME VERSUS MORTALITY GRAPH.
 	
-	In the modern society, the communication of information 
+	%Whilst residents of medium or high population density are able to access more timely medical services due to well established public transport and infrastructure, they however face a larger issue of long waiting times and insufficient medical staff per residence.
 	
-	Access to jobs, education,
+	The Government have responded to the shortages of medical specialists in rural areas by introducing a Medical Rural Bonded Scholarship (MRBS) Scheme. However, the ex
+	
+	In response to the disadvantage
+	%\subsection{Internet Access}
+	%Rural areas are often associated with lower public and private investment and in turn more expensive access to internet
+	
+	%In the modern society, the communication of information 
+	
+	%Access to jobs, education,
+	In summary, 
+	\subsection{Limitations of Analysis}
+	
 \end{document}
