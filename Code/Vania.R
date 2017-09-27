@@ -23,7 +23,8 @@ ggplot(edu_ocu, aes(Professional, Bachelor)) +
                 x = 10,
                 y = 35,
                 label = bach_pro_cor
-       )
+       ) +
+       theme_bw()
 
 bach_lab_cor <- cor(edu_ocu$Bachelor, edu_ocu$Labourers)
 
@@ -40,10 +41,13 @@ ggplot(edu_ocu, aes(Labourers, Bachelor)) +
                 x = 10,
                 y = 35,
                 label = bach_lab_cor
-       )
+       ) + 
+       theme_bw()
 
 #analysis
 #What is being analysed here?
+#From your word doc, a box plot would be better here
+#Avoid manual input of data
 eduocu <- matrix(c(13, 18, 9, 55, 46, 8, 3, 3, 6, 8, 4, 3, 10, 2, 9, 3),
                  nrow = 2,
                  ncol = 8)
