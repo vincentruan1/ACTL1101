@@ -25,16 +25,6 @@ death_st_11 <- na.omit(death_st_11)
 edu_death <- merge(edu, death_st_11)
 edu_death[3:9] <- lapply(edu_death[3:9], as.numeric)
 colnames(edu_death)[5] <- "Bachelor"
-death_bach_mean <- aggregate(Std ~  Bachelor, edu_death, mean)
-boxplot(
-  Std ~ Bachelor,
-  death_bach_mean,
-  main = "Death Rate versus % Bachelor",
-  xlab = "% Bachelor",
-  ylab = "Death rate per '000",
-  outline = FALSE,
-  ylim = c(0, 10)
-)
 ggplot(death_bach_mean, aes(x = Bachelor, y = Std)) + geom_point() + geom_smooth(method = "lm")
 
 ##Population density vs death
