@@ -37,7 +37,7 @@ seifa_ab[c(3:7)] <- lapply(seifa_ab[c(3:7)], as.numeric)
 
 #Leoss Graph of Aboriginals and Seifa with Medians for Each SEIFA decile
 ggplot(na.omit(seifa_ab), aes(Disadvantage, PercInd)) +
-       geom_point(aes(group = cut_width(Disadvantage, 1))) +
+       geom_point() +
        labs(
             title = "Disadvantage Decile and Aboriginal Percentages", 
             x = "Disadvantage Decile", 
