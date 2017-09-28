@@ -1,6 +1,8 @@
 library(ggplot2)
 library(grid)
 library(reshape2)
+theme_set(theme_bw())
+options( tikzLatexPackages = c( getOption( "tikzLatexPackages" ), "\\usepackage{libertine}", "\\usepackage{libertinust1math}"))
 
 colnames(edu)[c(1, 2)] <- c("Area", "Year")
 colnames(ocu)[c(1, 2)] <- c("Area", "Year")
@@ -11,38 +13,38 @@ edu_ocu[c(3:17)] <- lapply(edu_ocu[c(3:17)], as.numeric)
 bach_pro_cor <- cor(edu_ocu$Bachelor, edu_ocu$Professional)
 
 #Plot Bachelor Vs Professionals
+tikz(file = "bach_pro.tex", width = 4.85, height = 3, pointsize = 12)
 ggplot(edu_ocu, aes(Professional, Bachelor)) + 
-       geom_point() +
-       geom_smooth(method = "lm") + 
+       geom_point(shape = 1) +
+       geom_smooth(method = "lm", colour = "red", lwd = 0.25) + 
        labs(
          y = "Percentage of Professional",
          x = "Percentage of Bachelor",
-         title = "Proportional of Bachelor versus Professionals"
+         title = "Joint Distribution of Bachelor and Professional"
        ) +
-       annotate(geom = "text",
-                x = 10,
-                y = 35,
-                label = bach_pro_cor
-       ) +
-       theme_bw()
+       theme(plot.title = element_text(size = rel(0.909), hjust = 0.5), 
+             axis.title = element_text(size = rel(0.909)),
+             axis.title.y = element_text( vjust = 0.5 ),
+             axis.title.x = element_text( hjust = 0.5 ))
+dev.off()
 
 bach_lab_cor <- cor(edu_ocu$Bachelor, edu_ocu$Labourers)
 
 #Plot Bachelor Vs Labourers
+tikz(file = "bach_lab.tex", width = 4.85, height = 3, pointsize = 12)
 ggplot(edu_ocu, aes(Labourers, Bachelor)) + 
-       geom_point() +
-       geom_smooth(method = "loess") + 
+       geom_point(shape = 21) +
+       geom_smooth(method = "loess", colour = "red", lwd = 0.25) + 
        labs(
          y = "Percentage of Labourers",
          x = "Percentage of Bachelor",
-         title = "Proportional of Bachelor versus Professionals"
+         title = "Joint Distribution of Labourers and Bachelor"
        ) +
-       annotate(geom = "text",
-                x = 10,
-                y = 35,
-                label = bach_lab_cor
-       ) + 
-       theme_bw()
+       theme(plot.title = element_text(size = rel(0.909), hjust = 0.5), 
+             axis.title = element_text(size = rel(0.909)),
+             axis.title.y = element_text( vjust = 0.5 ),
+             axis.title.x = element_text( hjust = 0.5 ))
+dev.off()
 
 #analysis
 #What is being analysed here?

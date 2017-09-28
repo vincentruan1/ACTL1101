@@ -1,11 +1,13 @@
 library(plyr)
 library(ggplot2)
 library(quantreg)
+library(tikzDevice)
+theme_set(theme_bw())
+options( tikzLatexPackages = c( getOption( "tikzLatexPackages" ), "\\usepackage{libertine}", "\\usepackage{libertinust1math}"))
 
 ##Income
 colnames(death_st)[c(1, 2, 3)] <- c("Area", "Year", "Std")
-colnames(employee_income)[c(1, 2, 3)] <-
-  c("Area", "Year", "MedIncome")
+colnames(employee_income)[c(1, 2, 3)] <- c("Area", "Year", "MedIncome")
 #Select death's in the year 2013
 death_st_13 <- death_st[death_st$Year == "2013", ]
 #Combine death and income together
@@ -31,18 +33,65 @@ ggplot(death_bach_mean, aes(x = Bachelor, y = Std)) + geom_point() + geom_smooth
 colnames(pop_den)[c(1, 2, 3)] <- c("Area", "Year", "PopDen")
 pop_den_death <- merge(pop_den, death_st_11)
 pop_den_death[c(2:4)] <- lapply(pop_den_death[c(2:4)], as.numeric)
-ggplot(pop_den_death, aes(x = PopDen, y = Std)) + geom_point(na.rm = TRUE) + scale_x_log10() + geom_smooth(method = "lm")
+
+tikz(file = "den_death.tex", width = 3.86, height = 2.38, pointsize = 12)
+ggplot(pop_den_death, aes(x = PopDen, y = Std)) + 
+       geom_point(na.rm = TRUE, shape = 21) + 
+       scale_x_log10() + 
+       geom_smooth(method = "lm",
+                   colour = "red", 
+                   lwd = 0.25) +
+       labs(
+         title = "Population Density on Death Rate",
+         x = "Population Density",
+         y = "Standardised Death per 000"
+       ) +
+       theme(plot.title = element_text(size = rel(0.909), hjust = 0.5), 
+             axis.title = element_text(size = rel(0.909)),
+             axis.title.y = element_text( vjust = 0.5 ),
+             axis.title.x = element_text( hjust = 0.5 ))
+dev.off()
 
 ##Population density vs Education
 pop_den_edu <- merge(pop_den, edu)
 pop_den_edu[c(2:9)] <- lapply(pop_den_edu[c(2:9)], as.numeric)
 colnames(pop_den_edu)[6] <- c("Bachelor")
-ggplot(pop_den_edu, aes(x = PopDen, y = Bachelor)) + geom_point(na.rm = TRUE) + scale_x_log10()
+
+tikz(file = "den_edu.tex", width = 2.57, height = 3.21, pointsize = 12)
+ggplot(pop_den_edu, aes(x = PopDen, y = Bachelor)) + 
+       geom_point(na.rm = TRUE, shape = 21) + 
+       scale_x_log10() +
+       labs(
+         title = "Population Density \n against Education",
+         x = "Population Density (per sq km)",
+         y = "Bachelor Degree (\\%)"
+       ) +
+       theme(plot.title = element_text(size = rel(0.909), hjust = 0.5), 
+             axis.title = element_text(size = rel(0.909)),
+             axis.title.y = element_text( vjust = 0.5 ),
+             axis.title.x = element_text( hjust = 0.5 ))
+dev.off()
 
 ##Income versus population density
 inc_pop_den <- merge(pop_den, employee_income)
+colnames(employee_income)[c(1, 2, 3)] <- c("Area", "Year", "MedIncome")
 inc_pop_den[c(3:6)] <- lapply(inc_pop_den[c(3:6)], as.numeric)
-ggplot(inc_pop_den, aes(x = PopDen, y = MedIncome)) + geom_point(na.rm = TRUE) + scale_x_log10()
+
+tikz(file = "den_inc.tex", width = 2.71, height = 3.35, pointsize = 12)
+ggplot(inc_pop_den, aes(x = PopDen, y = MedIncome)) +
+       geom_point(na.rm = TRUE, shape = 21) + 
+       scale_x_log10() + 
+       scale_y_continuous(labels = scales::comma) +
+       labs(
+           title = "Population Density \n against Income",
+           x = "Population Density (per sq km)",
+           y = "Median Income (\\$)"
+           ) +
+       theme(plot.title = element_text(size = rel(0.909), hjust = 0.5), 
+             axis.title = element_text(size = rel(0.909)),
+             axis.title.y = element_text( vjust = 0.5 ),
+             axis.title.x = element_text( hjust = 0.5 ))
+dev.off()
 
 ##English proficiency
 colnames(eng_prof)[c(1, 2)] <- c("Area", "Year")
